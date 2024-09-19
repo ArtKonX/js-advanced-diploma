@@ -12,5 +12,28 @@
  * ```
  * */
 export default class Team {
-  // TODO: write your logic here
+
+  constructor() {
+    this.characters = new Set();
+  }
+
+  add(character) {
+    if (this.characters.has(character)) {
+      throw new Error(`Этот персонаж ${character.type} уже существует`);
+    }
+
+    this.characters.add(character);
+  }
+
+  addAll(characters) {
+    this.characters = new Set([...this.characters, ...characters])
+  }
+
+  clearAllSet() {
+    this.characters.clear()
+  }
+
+  deleteCharacter(char) {
+    this.characters.delete(char)
+  }
 }

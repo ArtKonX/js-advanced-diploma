@@ -13,12 +13,26 @@
  * vampire
  */
 export default class Character {
-  constructor(level, type = 'generic') {
+  constructor(level = 1, type = 'generic') {
+
+    this.type = type;
     this.level = level;
+    this.health = 50;
     this.attack = 0;
     this.defence = 0;
-    this.health = 50;
-    this.type = type;
-    // TODO: выбросите исключение, если кто-то использует "new Character()"
+
+    if (new.target.name === 'Character') throw new Error('Нельзя создавать объекты этого класса через new Character(level)');
+  }
+
+  levelUp() {
+    this.level += 1;
+    this.attack = Math.floor(Math.max(this.attack, this.attack * (80 + this.health) / 100));
+    this.defence = Math.floor(Math.max(this.defence, this.defence * (80 + this.health) / 100));
+    this.health += 80;
+    if (this.health > 100) this.health = 100;
+  }
+
+  get infoCharacter() {
+    return `\u{1F396}${this.level}\u{2694}${this.attack}\u{1F6E1}${this.defence}\u{2764}${this.health}`;
   }
 }
